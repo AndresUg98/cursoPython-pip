@@ -1,13 +1,21 @@
 import utils#Este es el modulo que nosotros creamos
 import readCSV
 import charts
+import pandas as pd
 
 
 def run():
+    # data = readCSV.readCSV('./data.csv') #Usando nuestro modulo readCSV para que nos de la data que tiene
+    # data = list(filter(lambda continent: continent['Continent'] == 'North America',data))#Filtrado de continentes
+    # countries = list(map(lambda country : country['Country/Territory'],data))
+    # percentages = list(map(lambda percentage : percentage['World Population Percentage'],data))
+    
+
     data = readCSV.readCSV('./data.csv') #Usando nuestro modulo readCSV para que nos de la data que tiene
-    data = list(filter(lambda continent: continent['Continent'] == 'North America',data))#Filtrado de continentes
-    countries = list(map(lambda country : country['Country/Territory'],data))
-    percentages = list(map(lambda percentage : percentage['World Population Percentage'],data))
+    df = pd.read_csv('data.csv')
+    df = df[df['Continent'] == 'Africa']
+    countries = df['Country/Territory'].values
+    percentages = df['World Population Percentage'].values
     charts.generatePieChart(countries,percentages)
     
     country = input('Type Country => ')
